@@ -12,9 +12,21 @@
   "scripts": {
     "build": "tsc --project tsconfig.esm.json & tsc --project tsconfig.cjs.json"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "discord",
+    "eris",
+    "sharding",
+    "manager"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "author": "Nota30",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nota30/eris-threads.git"
+  },
   "devDependencies": {
     "eslint": "^8.15.0",
     "eslint-config-canonical": "^35.0.0",
