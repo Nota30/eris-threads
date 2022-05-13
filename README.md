@@ -1,45 +1,65 @@
-# eris-threads
+<div align="center">
+  <h4><b>eris-threads</b></h4>
+  <p>
 
-# About
+<a href="https://github.com/abalabahaha/eris"><img src="https://img.shields.io/badge/Discord%20Library-Eris-blue?style=flat-square" alt="Discord Library" /></a>
+<a href="https://www.npmjs.com/package/eris-threads"><img src="https://img.shields.io/npm/v/eris-threads.svg?cacheSeconds=3600&style=flat-square&label=version&logo=npm" alt="NPM version" /></a>
 
-eris-threads is a powerful sharding and cluster manager for the discord Eris library. It uses Node.js's cluster module to spread shards evenly among all the cores. Eris-threads is based on [eris-sharder](https://github.com/discordware/eris-sharder) (an updated version)
+  </p>
+  <p>
+    <a href="https://www.npmjs.com/package/eris-threads/"><img src="https://nodeico.herokuapp.com/eris-threads.svg"></a>
+  </p>
+</div>
 
-# Installation and usage
+# About the package
 
-To download eris-threads, run `npm install eris-threads --save`
+Eris-threads is a sharding and cluster manager for discord bots based on [eris](https://abal.moe/Eris/). Eris-threads spreads shards evenly among your cores. Eris-threads is based on [eris-sharder](https://github.com/discordware/eris-sharder) (an updated version)
 
-To use eris-threads, simply copy this code and place it in a file, in the same directory that you ran the npm install in:
+# Installation
 
-```javascript
-const { ShardingManager } = require('eris-threads');
-const sharder = new ShardingManager(token, pathToMainFile, options);
+npm:
+
+```
+npm install eris-threads
 ```
 
-## Options
+yarn:
 
-| Name                     | Description                                                                                                                                                 |
-| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `token`                  | your discord bot token. It will be used to calculate how many shards to spawn and to pass it on to your main file.                                          |
-| `pathToMainFile`         | path to a file that exports a class. The class must containt a method called "launch". In the constructor the only paramater you should put is for the bot. |
-| `options.stats`          | boolean. When set to true it enables stats output.                                                                                                          |
-| `options.webhooks`       | Object.`{shard: {id: "webhookID", token: "webhookToken"}, cluster:{id: "webhookID", token: "webhookToken"}}`                                                |
-| `options.clientOptions`  | A object of client options you want to pass to the Eris client constructor.                                                                                 |
-| `options.clusters`       | The number of how many clusters you want. Defaults to the amount of threads                                                                                 |
-| `options.clusterTimeout` | Number of seconds between starting up clusters. Values lower than 5 may lead to an Invalid Session on first shard.                                          |
-| `options.shards`         | The number of total shards you plan to run. Defaults to the amount that the gateway reccommends, taking into account `options.guildsPerShard`               |
-| `options.firstShardID`   | ID of the first shard to start on this instance. Defaults to `0`                                                                                            |
-| `options.lastShardID`    | ID of the last shard to start on this instance. Defaults to `options.shards - 1`                                                                            |
-| `options.debug`          | Boolean to enable debug logging.                                                                                                                            |
-| `options.statsInterval`  | Interval to release the stats event in milliseconds. Defaults to every minute                                                                               |
-| `options.guildsPerShard` | Number to calculate how many guilds per shard. Defaults to 1300. Overriden if you only have 1 shard.                                                        |
+```
+yarn add eris-threads
+```
+
+pnpm:
+
+```
+pnpm add eris-threads
+```
+
+## Sharding Manager Options
+
+| Name                     | Type      | Description                                                                                                                                                       |
+| ------------------------ | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `token`                  | `string`  | A discord token                                                                                                                                                   |
+| `pathToMainFile`         | `string`  | File path that exports the **Base** class. The class must containt a method called "launch". In the constructor the only paramater you should put is for the bot. |
+| `options.stats`          | `boolean` | Enables stats output if `true`.                                                                                                                                   |
+| `options.webhooks`       | `object`  | Webhook options to send to a channel. Example: `{shard: {id: "webhookID", token: "webhookToken"}, cluster:{id: "webhookID", token: "webhookToken"}}`              |
+| `options.clientOptions`  | `object`  | Eris client options. You can find them [here](https://abal.moe/Eris/docs/0.16.1/Client)                                                                           |
+| `options.clusters`       | `number`  | The number of clusters you want to spawn. Defaults to the amount of cores on your system                                                                          |
+| `options.clusterTimeout` | `number`  | Number of seconds between starting up clusters. Values lower than 5 may lead to an Invalid Session on first shard.                                                |
+| `options.shards`         | `number`  | The number of shards you want to spwan. Defaults gateway reccommendation, taking into account `options.guildsPerShard`                                            |
+| `options.firstShardID`   | `number`  | ID of the first shard to start on this instance. Defaults to `0`                                                                                                  |
+| `options.lastShardID`    | `number`  | ID of the last shard to start on this instance. Defaults to `options.shards - 1`                                                                                  |
+| `options.debug`          | `boolean` | Boolean to enable debug logging.                                                                                                                                  |
+| `options.statsInterval`  | `number`  | Interval to release the stats event in milliseconds. Defaults to every minute                                                                                     |
+| `options.guildsPerShard` | `number`  | The number of guilds per shard. Defaults to 1300. Overriden if you only have 1 shard.                                                                             |
 
 # IPC
 
-eris-threads supports a variety of IPC events. All IPC events can be used via `process.send({type: "event"});`
+All IPC events can be used via `process.send({type: "event"});`
 
 ## Logging
 
-eris-threads supports the following IPC logging events.
+eris-threads supports the following IPC logging events:
 
 | Name  | Example                                          | Description                      |
 | ----- | ------------------------------------------------ | -------------------------------- |
@@ -124,12 +144,8 @@ sharder.on('stats', stats => {
 });
 ```
 
-## Starting the script
+## Starting your bot
 
 ```
 node index.js
 ```
-
-## NOTICE
-
-If you are using pm2 to run your script add the `-- --colors` option to enable the colorful logging.
