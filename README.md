@@ -13,7 +13,7 @@
 
 # About the package
 
-Eris-threads is a sharding and cluster manager for discord bots based on [eris](https://abal.moe/Eris/). Eris-threads spreads shards evenly among your cores. Eris-threads is based on [eris-sharder](https://github.com/discordware/eris-sharder) (an updated version)
+Eris-threads is a sharding and cluster manager for discord bots based on [eris](https://abal.moe/Eris/). Eris-threads spreads shards evenly among your cores. Eris-threads is based on [eris-sharder](https://github.com/discordware/eris-sharder) (an updated version). **Supports CommonJS and ESM**.
 
 # Installation
 
