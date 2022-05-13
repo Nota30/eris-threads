@@ -1,0 +1,19 @@
+{
+  "extends": ["canonical", "canonical/prettier", "prettier"],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": "error",
+    "canonical/import-specifier-newline": "off",
+    "canonical/export-specifier-newline": "off",
+    "canonical/destructuring-property-newline": "off",
+    "unicorn/numeric-separators-style": "off",
+    "no-negated-condition": "off",
+    "canonical/filename-match-exported": "off",
+    "import/extensions": "off"
+  },
+  "settings": {
+    "jsdoc": {
+      "mode": "typescript"
+    }
+  }
+}
