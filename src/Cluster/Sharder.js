@@ -5,7 +5,7 @@ import { EventEmitter } from 'node:events';
 import { cpus } from 'node:os';
 import process from 'node:process';
 import { setInterval, setTimeout } from 'node:timers';
-import Eris from 'eris';
+import { Client } from 'eris';
 import logger from '../Utils/Logger.js';
 import Queue from '../Utils/Queue.js';
 import ClusterS from './Cluster.js';
@@ -86,7 +86,7 @@ export default class ShardingManager extends EventEmitter {
     }
 
     if (this.token) {
-      this.eris = new Eris(options.token);
+      this.eris = new Client(options.token);
     } else {
       throw new Error('No token provided');
     }

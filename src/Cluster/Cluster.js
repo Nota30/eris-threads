@@ -2,7 +2,7 @@ import console from 'node:console';
 import process from 'node:process';
 import { setInterval } from 'node:timers';
 import { inspect } from 'node:util';
-import Eris from 'eris';
+import { Client } from 'eris';
 import Base from '../Shard/Base.js';
 import IPC from '../Shard/Ipc.js';
 import RequestHandler from '../Shard/RequestHandler.js';
@@ -219,7 +219,7 @@ export default class Cluster {
 
     Object.assign(options, clientOptions);
 
-    const bot = new Eris(token, options);
+    const bot = new Client(token, options);
     this.bot = bot;
 
     this.bot.requestHandler = new RequestHandler(this.ipc, {
