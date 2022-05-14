@@ -3,3 +3,4 @@ test
 .eslintignore
 .prettierrc
 .prettierignore
+pnpm-lock.yaml
