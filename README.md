@@ -74,7 +74,7 @@ module.exports = Class;
 
 ```javascript
 const { ShardingManager } = require('eris-threads');
-const shardManager = new ShardingManager('/src/main.js', {
+const shardManager = new ShardingManager('/main.js', {
   token: 'botToken',
   stats: true,
   debug: true,
