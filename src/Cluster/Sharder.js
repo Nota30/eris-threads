@@ -186,10 +186,8 @@ export default class ShardingManager extends EventEmitter {
       process.nextTick(async () => {
         logger.sillyInfo('Manager', 'Cluster & Sharding Manager has started!');
 
-        if (this.shardCount === 'auto') {
-          const shards = await this.calculateShards();
-          this.shardCount = shards;
-        }
+        const shards = await this.calculateShards();
+        this.shardCount = shards;
 
         if (this.lastShardID === 0) this.lastShardID = this.shardCount - 1;
 
