@@ -1,5 +1,5 @@
 import { grey, blue, red, cyan, green, rainbow, yellow } from 'colors';
-import log from 'fancy-log';
+import * as log from 'fancy-log';
 
 /**
  * Fancy Logging
