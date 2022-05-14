@@ -28,9 +28,11 @@ export default class ShardingManager extends EventEmitter {
    * @param {object} options.webhooks.shard
    * @param {string} options.webhooks.shard.id
    * @param {string} options.webhooks.shard.token
+   * @param {object} options.webhooks.shard.embed
    * @param {object} options.webhooks.cluster
    * @param {string} options.webhooks.cluster.id
    * @param {string} options.webhooks.cluster.token
+   * @param {object} options.webhooks.cluster.embed
    * @param {import('eris').ClientOptions} options.clientOptions
    * @param {number} options.clusters
    * @param {number} options.clusterTimeout
@@ -40,6 +42,7 @@ export default class ShardingManager extends EventEmitter {
    * @param {boolean} options.debug
    * @param {number} options.statsInterval
    * @param {number} options.guildsPerShard
+   * @param {boolean} options.noConsoleOveride
    */
   constructor(mainFile, options) {
     super();
@@ -60,6 +63,7 @@ export default class ShardingManager extends EventEmitter {
     this.statsInterval = options.statsInterval || 60 * 1000;
     this.mainFile = mainFile;
     this.guildsPerShard = options.guildsPerShard || 1300;
+    this.noConsoleOveride = options.noConsoleOveride || false;
     this.webhooks = {
       cluster: undefined,
       shard: undefined,
@@ -137,7 +141,7 @@ export default class ShardingManager extends EventEmitter {
    */
   start(clusterID) {
     if (clusterID === this.clusterCount) {
-      logger.info('Cluster Manager', 'Clusters have been launched!');
+      logger.info('Manager', 'Clusters have been launched!');
 
       const shards = [];
 
@@ -164,7 +168,7 @@ export default class ShardingManager extends EventEmitter {
       const worker = master.fork();
       this.clusters.set(clusterID, { workerID: worker.id });
       this.workers.set(worker.id, clusterID);
-      logger.info('Cluster Manager', `Launching cluster ${clusterID}`);
+      logger.info('Manager', `Launching cluster ${clusterID}`);
       // eslint-disable-next-line no-param-reassign
       clusterID += 1;
 
@@ -176,11 +180,11 @@ export default class ShardingManager extends EventEmitter {
     if (!this.token) throw new Error('No token was provided');
     if (master.isPrimary) {
       process.on('uncaughtException', error => {
-        logger.error('Cluster Manager', error.stack);
+        logger.error('Manager', error.stack);
       });
 
       process.nextTick(async () => {
-        logger.info('General', 'Cluster Manager has started!');
+        logger.sillyInfo('Manager', 'Cluster & Sharding Manager has started!');
 
         if (this.shardCount === 'auto') {
           const shards = await this.calculateShards();
@@ -190,7 +194,7 @@ export default class ShardingManager extends EventEmitter {
         if (this.lastShardID === 0) this.lastShardID = this.shardCount - 1;
 
         logger.info(
-          'Cluster Manager',
+          'Manager',
           `Starting ${this.shardCount} shards in ${this.clusterCount} clusters`
         );
 
@@ -220,22 +224,32 @@ export default class ShardingManager extends EventEmitter {
         // eslint-disable-next-line default-case
         switch (message.name) {
           case 'log':
-            logger.log(`Cluster ${clusterID}`, `${message.msg}`);
+            if (!this.noConsoleOveride)
+              logger.log(`Cluster ${clusterID}`, `${message.msg}`);
+            else console.log(`${message.msg}`);
             break;
           case 'debug':
             if (this.options.debug) {
-              logger.debug(`Cluster ${clusterID}`, `${message.msg}`);
+              if (!this.noConsoleOveride)
+                logger.debug(`Cluster ${clusterID}`, `${message.msg}`);
+              else console.debug(`${message.msg}`);
             }
 
             break;
           case 'info':
-            logger.info(`Cluster ${clusterID}`, `${message.msg}`);
+            if (!this.noConsoleOveride)
+              logger.info(`Cluster ${clusterID}`, `${message.msg}`);
+            else console.info(`${message.msg}`);
             break;
           case 'warn':
-            logger.warn(`Cluster ${clusterID}`, `${message.msg}`);
+            if (!this.noConsoleOveride)
+              logger.warn(`Cluster ${clusterID}`, `${message.msg}`);
+            else console.warn(`${message.msg}`);
             break;
           case 'error':
-            logger.error(`Cluster ${clusterID}`, `${message.msg}`);
+            if (!this.noConsoleOveride)
+              logger.error(`Cluster ${clusterID}`, `${message.msg}`);
+            else console.error(`${message.msg}`);
             break;
           case 'shardsStarted':
             this.queue.queue.splice(0, 1);
@@ -384,7 +398,7 @@ export default class ShardingManager extends EventEmitter {
 
     master.on('disconnect', worker => {
       const clusterID = this.workers.get(worker.id);
-      logger.warn('Cluster Manager', `cluster ${clusterID} disconnected`);
+      logger.warn('Manager', `cluster ${clusterID} disconnected`);
     });
 
     master.on('exit', (worker, code, signal) => {
@@ -457,7 +471,7 @@ export default class ShardingManager extends EventEmitter {
       });
     }
 
-    logger.info('Cluster Manager', `All shards spread`);
+    logger.info('Manager', `All shards spread`);
 
     if (this.stats) {
       this.startStats();
@@ -475,7 +489,20 @@ export default class ShardingManager extends EventEmitter {
     if (!this.webhooks || !this.webhooks[type]) return;
     const id = this.webhooks[type].id;
     const token = this.webhooks[type].token;
-    embed.timestamp = new Date();
+    const embedAuthor = this.webhooks[type].embed?.author;
+    const embedFooter = this.webhooks[type].embed?.footer;
+    const embedColor = this.webhooks[type].embed?.color;
+    const embedImage = this.webhooks[type].embed?.image;
+    const embedThumbnail = this.webhooks[type].embed?.thumbnail;
+    const embedFields = this.webhooks[type].embed?.fields;
+    const embedTimestamp = this.webhooks[type].embed?.timestamp;
+    if (embedAuthor) embed.author = embedAuthor;
+    if (embedFooter) embed.footer = embedFooter;
+    if (embedColor) embed.color = embedColor;
+    if (embedImage) embed.image = embedImage;
+    if (embedThumbnail) embed.thumbnail = embedThumbnail;
+    if (embedFields) embed.fields = embedFields;
+    if (embedTimestamp) embed.timestamp = embedTimestamp;
     if (id && token) {
       this.eris.executeWebhook(id, token, { embeds: [embed] });
     }
@@ -490,7 +517,7 @@ export default class ShardingManager extends EventEmitter {
   restartCluster(worker, code) {
     const clusterID = this.workers.get(worker.id);
 
-    logger.warn('Cluster Manager', `cluster ${clusterID} died`);
+    logger.warn('Manager', `cluster ${clusterID} died`);
 
     const cluster = this.clusters.get(clusterID);
 
@@ -511,7 +538,7 @@ export default class ShardingManager extends EventEmitter {
 
     this.workers.set(newWorker.id, clusterID);
 
-    logger.debug('Cluster Manager', `Restarting cluster ${clusterID}`);
+    logger.debug('Manager', `Restarting cluster ${clusterID}`);
 
     this.queue.queueItem({
       item: clusterID,

@@ -3,14 +3,11 @@ import log from 'fancy-log';
 
 colors.setTheme({
   data: 'grey',
-  debug: 'cyan',
+  debug: 'blue',
   error: 'red',
-  help: 'cyan',
-  info: 'green',
-  log: 'grey',
-  prompt: 'grey',
+  info: 'cyan',
+  log: 'green',
   silly: 'rainbow',
-  verbose: 'cyan',
   warn: 'yellow',
 });
 
@@ -39,6 +36,17 @@ class Logger {
    */
   info(source, message_) {
     const message = colors.info(message_);
+    log(`${source} | ${message}`);
+  }
+
+  /**
+   * Log silly color information to console
+   *
+   * @param {*} source
+   * @param {*} message_
+   */
+  sillyInfo(source, message_) {
+    const message = colors.silly(message_);
     log(`${source} | ${message}`);
   }
 

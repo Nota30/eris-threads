@@ -10,7 +10,8 @@
     "no-negated-condition": "off",
     "canonical/filename-match-exported": "off",
     "import/extensions": "off",
-    "unicorn/import-index": "off"
+    "unicorn/import-index": "off",
+    "no-useless-constructor": "off"
   },
   "settings": {
     "jsdoc": {

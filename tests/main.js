@@ -1,17 +1,17 @@
 import console from 'node:console';
 import { Base } from '../src/index.js';
 
-export default class Class extends Base {
-  // eslint-disable-next-line no-useless-constructor
+export default class Bot extends Base {
   constructor(bot) {
     super(bot);
+    this.init();
   }
 
-  launch() {
+  init() {
     console.log('Bot ready!');
 
     this.bot.on('messageCreate', message => {
-      if (message.author.id === '554476322303246388') console.log(message.content);
+      console.log(message.content);
     });
   }
 }

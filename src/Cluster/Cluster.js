@@ -302,7 +302,6 @@ export default class Cluster {
     if (app.default !== undefined) app = app.default;
     if (app.prototype instanceof Base) {
       this.app = new app({ bot, clusterID: this.clusterID, ipc: this.ipc });
-      this.app.launch();
     } else {
       console.error(
         'Your code has not been loaded! This is due to it not extending the Base class. Please extend the Base class!'
