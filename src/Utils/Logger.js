@@ -1,15 +1,5 @@
-import colors from 'colors';
+import { grey, blue, red, cyan, green, rainbow, yellow } from 'colors';
 import log from 'fancy-log';
-
-colors.setTheme({
-  data: 'grey',
-  debug: 'blue',
-  error: 'red',
-  info: 'cyan',
-  log: 'green',
-  silly: 'rainbow',
-  warn: 'yellow',
-});
 
 /**
  * Fancy Logging
@@ -24,7 +14,7 @@ class Logger {
    * @param {*} message_
    */
   log(source, message_) {
-    const message = colors.log(message_);
+    const message = green(message_);
     log(`${source} | ${message}`);
   }
 
@@ -35,7 +25,7 @@ class Logger {
    * @param {*} message_
    */
   info(source, message_) {
-    const message = colors.info(message_);
+    const message = cyan(message_);
     log(`${source} | ${message}`);
   }
 
@@ -46,7 +36,7 @@ class Logger {
    * @param {*} message_
    */
   sillyInfo(source, message_) {
-    const message = colors.silly(message_);
+    const message = rainbow(message_);
     log(`${source} | ${message}`);
   }
 
@@ -57,7 +47,7 @@ class Logger {
    * @param {*} message_
    */
   warn(source, message_) {
-    const message = colors.warn(message_);
+    const message = yellow(message_);
     log(`${source} | ${message}`);
   }
 
@@ -68,7 +58,7 @@ class Logger {
    * @param {*} message_
    */
   error(source, message_) {
-    const message = colors.error(message_);
+    const message = red(message_);
     log(`${source} | ${message}`);
   }
 
@@ -79,7 +69,7 @@ class Logger {
    * @param {*} message_
    */
   data(source, message_) {
-    const message = colors.data(message_);
+    const message = grey(message_);
     log(`${source} | ${message}`);
   }
 
@@ -90,7 +80,7 @@ class Logger {
    * @param {*} message_
    */
   debug(source, message_) {
-    const message = colors.debug(message_);
+    const message = blue(message_);
     log(`${source} | ${message}`);
   }
 }
