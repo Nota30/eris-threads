@@ -1,6 +1,6 @@
 import { Buffer } from 'node:buffer';
 import crypto from 'node:crypto';
-import process from 'node:process';
+import * as process from 'node:process';
 import { clearTimeout, setTimeout } from 'node:timers';
 
 /**

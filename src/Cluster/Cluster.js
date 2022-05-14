@@ -1,5 +1,5 @@
 import console from 'node:console';
-import process from 'node:process';
+import * as process from 'node:process';
 import { setInterval } from 'node:timers';
 import { inspect } from 'node:util';
 import { Client } from 'eris';

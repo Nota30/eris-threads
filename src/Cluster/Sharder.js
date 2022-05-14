@@ -3,7 +3,7 @@ import * as master from 'node:cluster';
 import console from 'node:console';
 import { EventEmitter } from 'node:events';
 import { cpus } from 'node:os';
-import process from 'node:process';
+import * as process from 'node:process';
 import { setInterval, setTimeout } from 'node:timers';
 import { Client } from 'eris';
 import logger from '../Utils/Logger.js';
