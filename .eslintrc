@@ -11,7 +11,8 @@
     "canonical/filename-match-exported": "off",
     "import/extensions": "off",
     "unicorn/import-index": "off",
-    "no-useless-constructor": "off"
+    "no-useless-constructor": "off",
+    "no-import-assign": "off"
   },
   "settings": {
     "jsdoc": {

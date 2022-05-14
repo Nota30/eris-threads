@@ -1,6 +1,6 @@
 import { Buffer } from 'node:buffer';
 import * as master from 'node:cluster';
-import console from 'node:console';
+import * as console from 'node:console';
 import { EventEmitter } from 'node:events';
 import { cpus } from 'node:os';
 import * as process from 'node:process';

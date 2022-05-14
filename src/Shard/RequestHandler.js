@@ -1,5 +1,5 @@
 import { Buffer } from 'node:buffer';
-import crypto from 'node:crypto';
+import { randomBytes } from 'node:crypto';
 import * as process from 'node:process';
 import { clearTimeout, setTimeout } from 'node:timers';
 
@@ -36,7 +36,7 @@ export default class RequestHandler {
       // eslint-disable-next-line unicorn/error-message
       const stackCapture = new Error().stack;
 
-      const requestID = crypto.randomBytes(16).toString('hex');
+      const requestID = randomBytes(16).toString('hex');
 
       if (file && file.file) file.file = Buffer.from(file.file).toString('base64');
 

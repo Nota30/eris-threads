@@ -1,4 +1,4 @@
-import console from 'node:console';
+import * as console from 'node:console';
 import * as process from 'node:process';
 import { setInterval } from 'node:timers';
 import { inspect } from 'node:util';
