@@ -10,7 +10,8 @@
       "default": "./dist/esm/index.js"
   },
   "scripts": {
-    "prepare": "tsc --project tsconfig.esm.json & tsc --project tsconfig.cjs.json"
+    "prepare": "npm run build",
+    "build": "tsc --project tsconfig.esm.json & tsc --project tsconfig.cjs.json"
   },
   "keywords": [
     "discord",
