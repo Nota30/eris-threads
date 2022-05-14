@@ -9,7 +9,8 @@
     "unicorn/numeric-separators-style": "off",
     "no-negated-condition": "off",
     "canonical/filename-match-exported": "off",
-    "import/extensions": "off"
+    "import/extensions": "off",
+    "unicorn/import-index": "off"
   },
   "settings": {
     "jsdoc": {

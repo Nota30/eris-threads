@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "description": "Sharding manager for Eris based discord bots.",
   "main": "./dist/esm/index.js",
+  "type": "module",
   "types": "./dist/types/index.d.ts",
   "exports": {
     "import": "./dist/esm/index.js",

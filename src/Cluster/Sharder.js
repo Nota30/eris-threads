@@ -20,9 +20,9 @@ export default class ShardingManager extends EventEmitter {
   /**
    * Sharder options
    *
-   * @param {string} token
    * @param {string} mainFile
    * @param {object} options
+   * @param {string} options.token
    * @param {boolean} options.stats
    * @param {object} options.webhooks
    * @param {object} options.webhooks.shard
@@ -41,14 +41,14 @@ export default class ShardingManager extends EventEmitter {
    * @param {number} options.statsInterval
    * @param {number} options.guildsPerShard
    */
-  constructor(token, mainFile, options) {
+  constructor(mainFile, options) {
     super();
     this.shardCount = options.shards || 'auto';
     this.firstShardID = options.firstShardID || 0;
     this.lastShardID = options.lastShardID || 0;
     this.clusterCount = options.clusters || cpus().length;
     this.clusterTimeout = options.clusterTimeout * 1000 || 5000;
-    this.token = token || false;
+    this.token = options.token || false;
     this.clusters = new Map();
     this.workers = new Map();
     this.queue = new Queue();
@@ -82,8 +82,7 @@ export default class ShardingManager extends EventEmitter {
     }
 
     if (this.token) {
-      this.eris = new Eris(token);
-      this.launch(false);
+      this.eris = new Eris(options.token);
     } else {
       throw new Error('No token provided');
     }
@@ -173,7 +172,8 @@ export default class ShardingManager extends EventEmitter {
     }
   }
 
-  launch() {
+  spawn() {
+    if (!this.token) throw new Error('No token was provided');
     if (master.isPrimary) {
       process.on('uncaughtException', error => {
         logger.error('Cluster Manager', error.stack);
@@ -182,9 +182,10 @@ export default class ShardingManager extends EventEmitter {
       process.nextTick(async () => {
         logger.info('General', 'Cluster Manager has started!');
 
-        const shards = await this.calculateShards();
-
-        this.shardCount = shards;
+        if (this.shardCount === 'auto') {
+          const shards = await this.calculateShards();
+          this.shardCount = shards;
+        }
 
         if (this.lastShardID === 0) this.lastShardID = this.shardCount - 1;
 
