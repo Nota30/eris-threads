@@ -1,4 +1,7 @@
 {
+  "env": {
+    "node": true
+  },
   "extends": ["canonical", "canonical/prettier", "prettier"],
   "plugins": ["prettier"],
   "rules": {
@@ -12,7 +15,8 @@
     "import/extensions": "off",
     "unicorn/import-index": "off",
     "no-useless-constructor": "off",
-    "no-import-assign": "off"
+    "no-import-assign": "off",
+    "no-console": "off"
   },
   "settings": {
     "jsdoc": {

@@ -1,5 +1,4 @@
 import { EventEmitter } from 'node:events';
-import * as process from 'node:process';
 
 /**
  * IPC Handler

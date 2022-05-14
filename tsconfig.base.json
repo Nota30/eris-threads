@@ -6,6 +6,8 @@
     "sourceMap": true,
     "allowJs": true,
     "moduleResolution": "Node",
-    "declaration": true
+    "declaration": true,
+    "target": "ES2015",
+    "lib": ["ES2015"]
   }
 }

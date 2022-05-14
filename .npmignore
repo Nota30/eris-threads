@@ -1,6 +1,8 @@
+tests
 test
 .eslintrc
 .eslintignore
 .prettierrc
 .prettierignore
 pnpm-lock.yaml
+.github

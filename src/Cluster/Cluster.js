@@ -1,6 +1,3 @@
-import * as console from 'node:console';
-import * as process from 'node:process';
-import { setInterval } from 'node:timers';
 import { inspect } from 'node:util';
 import { Client } from 'eris';
 import Base from '../Shard/Base.js';
@@ -103,7 +100,6 @@ export default class Cluster {
               message.lastShardID,
               this.maxShards,
               message.token,
-              'connect',
               message.clientOptions
             );
 
@@ -200,10 +196,9 @@ export default class Cluster {
    * @param {number} lastShardID
    * @param {number|string} maxShards
    * @param {string} token
-   * @param {*} type
    * @param {object} clientOptions
    */
-  connect(firstShardID, lastShardID, maxShards, token, type, clientOptions) {
+  connect(firstShardID, lastShardID, maxShards, token, clientOptions) {
     process.send({ msg: `Connecting with ${this.shards} shard(s)`, name: 'log' });
 
     const options = {

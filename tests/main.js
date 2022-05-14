@@ -1,5 +1,4 @@
-import console from 'node:console';
-import { Base } from '../src/index.js';
+import { Base } from '../dist/esm/index.js';
 
 export default class Bot extends Base {
   constructor(bot) {

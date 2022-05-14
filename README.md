@@ -57,23 +57,11 @@ Project/
 ├── index.js
 ```
 
-## Example of main.js
-
-```javascript
-const { Base } = require('eris-threads');
-class Class extends Base {
-  constructor(bot) {
-    super(bot);
-  }
-}
-
-module.exports = Class;
-```
-
 ## Example of index.js
 
 ```javascript
 const { ShardingManager } = require('eris-threads');
+
 const shardManager = new ShardingManager('/main.js', {
   token: 'botToken',
   stats: true,
@@ -98,6 +86,20 @@ const shardManager = new ShardingManager('/main.js', {
 });
 
 shardManager.spawn();
+```
+
+## Example of main.js
+
+```javascript
+const { Base } = require('eris-threads');
+
+class Bot extends Base {
+  constructor(bot) {
+    super(bot);
+  }
+}
+
+module.exports = Bot;
 ```
 > You can start your bot using
 ```

@@ -1,5 +1,15 @@
-import { grey, blue, red, cyan, green, rainbow, yellow } from 'colors';
-import * as log from 'fancy-log';
+import { inspect } from 'node:util';
+
+class Timestamp {
+  constructor() {
+    this.now = new Date();
+  }
+}
+
+Timestamp.prototype[inspect.custom] = function (depth, options) {
+  const timestamp = this.now.toLocaleTimeString('en', { hour12: false });
+  return '[' + options.stylize(timestamp, 'date') + ']';
+};
 
 /**
  * Fancy Logging
@@ -14,8 +24,9 @@ class Logger {
    * @param {*} message_
    */
   log(source, message_) {
-    const message = green(message_);
-    log(`${source} | ${message}`);
+    const message = `\u001B[32m${message_}\u001B[0m`;
+    const time = `\u001B[35m${inspect(new Timestamp())}\u001B[0m`;
+    console.log(time, `${source} | ${message}`);
   }
 
   /**
@@ -25,8 +36,9 @@ class Logger {
    * @param {*} message_
    */
   info(source, message_) {
-    const message = cyan(message_);
-    log(`${source} | ${message}`);
+    const message = `\u001B[36m${message_}\u001B[0m`;
+    const time = `\u001B[35m${inspect(new Timestamp())}\u001B[0m`;
+    console.info(time, `${source} | ${message}`);
   }
 
   /**
@@ -36,8 +48,9 @@ class Logger {
    * @param {*} message_
    */
   sillyInfo(source, message_) {
-    const message = rainbow(message_);
-    log(`${source} | ${message}`);
+    const message = `\u001B[46m${message_}\u001B[0m`;
+    const time = `\u001B[35m${inspect(new Timestamp())}\u001B[0m`;
+    console.info(time, `${source} | ${message}`);
   }
 
   /**
@@ -47,8 +60,9 @@ class Logger {
    * @param {*} message_
    */
   warn(source, message_) {
-    const message = yellow(message_);
-    log(`${source} | ${message}`);
+    const message = `\u001B[33m${message_}\u001B[0m`;
+    const time = `\u001B[35m${inspect(new Timestamp())}\u001B[0m`;
+    console.warn(time, `${source} | ${message}`);
   }
 
   /**
@@ -58,8 +72,9 @@ class Logger {
    * @param {*} message_
    */
   error(source, message_) {
-    const message = red(message_);
-    log(`${source} | ${message}`);
+    const message = `\u001B[31m${message_}\u001B[0m`;
+    const time = `\u001B[35m${inspect(new Timestamp())}\u001B[0m`;
+    console.error(time, `${source} | ${message}`);
   }
 
   /**
@@ -69,8 +84,9 @@ class Logger {
    * @param {*} message_
    */
   data(source, message_) {
-    const message = grey(message_);
-    log(`${source} | ${message}`);
+    const message = `\u001B[2m${message_}\u001B[0m`;
+    const time = `\u001B[35m${inspect(new Timestamp())}\u001B[0m`;
+    console.log(time, `${source} | ${message}`);
   }
 
   /**
@@ -80,8 +96,9 @@ class Logger {
    * @param {*} message_
    */
   debug(source, message_) {
-    const message = blue(message_);
-    log(`${source} | ${message}`);
+    const message = `\u001B[34m${message_}\u001B[0m`;
+    const time = `\u001B[35m${inspect(new Timestamp())}\u001B[0m`;
+    console.debug(time, `${source} | ${message}`);
   }
 }
 

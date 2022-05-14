@@ -1,4 +1,4 @@
-import { ShardingManager } from '../src/index.js';
+import { ShardingManager } from '../dist/esm/index.js';
 
 const shardManager = new ShardingManager('/tests/main.js', {
   clientOptions: {
