@@ -5,7 +5,7 @@ import { randomBytes } from 'node:crypto';
  *
  * @class RequestHandler
  */
-export default class RequestHandler {
+export class RequestHandler {
   /**
    * RequestHandler constructor
    *

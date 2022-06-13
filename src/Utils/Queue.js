@@ -6,7 +6,7 @@ import { EventEmitter } from 'node:events';
  * @class Queue
  * @augments {EventEmitter}
  */
-export default class Queue extends EventEmitter {
+export class Queue extends EventEmitter {
   constructor() {
     super();
     this.queue = [];

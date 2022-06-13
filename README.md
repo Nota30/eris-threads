@@ -19,7 +19,7 @@ Eris-threads is a sharding and cluster manager for discord bots based on [eris](
 
 # Requirements
 - [Node.js version 16+](https://nodejs.org/en/)
-- [Eris version 0.16.0+](https://abal.moe/Eris/)
+- [Eris version 0.17.0+](https://abal.moe/Eris/)
 
 # Installation
 
@@ -62,7 +62,8 @@ Project/
 ```javascript
 const { ShardingManager } = require('eris-threads');
 
-const shardManager = new ShardingManager('/main.js', {
+const shardManager = new ShardingManager({
+  mainFile: '/main.js',
   token: 'botToken',
   stats: true,
   debug: true,
@@ -110,7 +111,7 @@ node index.js
 
 | Name                     | Type      | Description                                                                                                                                                       |
 | ------------------------ | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pathToMainFile`         | `string`  | File path that exports the **Base** class. The class must containt a method called "launch". In the constructor the only paramater you should put is for the bot. |
+| `options.mainFile`         | `string`  | File path that exports the **Base** class. The class must containt a method called "launch". In the constructor the only paramater you should put is for the bot. |
 | `options.token`                  | `string`  | A discord bot  token                                                                                                                                                   |
 | `options.stats`          | `boolean` | Enables stats output if `true`.                                                                                                                                   |
 | `options.webhooks`       | `object`  | Webhook options to send to a channel. Example: `{shard: {id: "webhookID", token: "webhookToken"}, cluster:{id: "webhookID", token: "webhookToken"}}`              |

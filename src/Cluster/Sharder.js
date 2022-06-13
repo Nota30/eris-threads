@@ -3,8 +3,8 @@ import { EventEmitter } from 'node:events';
 import { cpus } from 'node:os';
 import { Client } from 'eris';
 import logger from '../Utils/Logger.js';
-import Queue from '../Utils/Queue.js';
-import ClusterS from './Cluster.js';
+import { Queue } from '../Utils/Queue.js';
+import { Cluster } from './Cluster.js';
 
 /**
  * Sharding Manager
@@ -12,12 +12,12 @@ import ClusterS from './Cluster.js';
  * @class ShardingManager
  * @augments {EventEmitter}
  */
-export default class ShardingManager extends EventEmitter {
+export class ShardingManager extends EventEmitter {
   /**
    * Sharder options
    *
-   * @param {string} mainFile
    * @param {object} options
+   * @param {string} options.mainFile
    * @param {string} options.token
    * @param {boolean} options.stats
    * @param {object} options.webhooks
@@ -40,7 +40,7 @@ export default class ShardingManager extends EventEmitter {
    * @param {number} options.guildsPerShard
    * @param {boolean} options.noConsoleOveride
    */
-  constructor(mainFile, options) {
+  constructor(options) {
     super();
     this.shardCount = options.shards || 'auto';
     this.firstShardID = options.firstShardID || 0;
@@ -57,7 +57,6 @@ export default class ShardingManager extends EventEmitter {
       stats: options.stats || false,
     };
     this.statsInterval = options.statsInterval || 60 * 1000;
-    this.mainFile = mainFile;
     this.guildsPerShard = options.guildsPerShard || 1300;
     this.noConsoleOveride = options.noConsoleOveride || false;
     this.webhooks = {
@@ -79,6 +78,12 @@ export default class ShardingManager extends EventEmitter {
           voice: 0,
         },
       };
+    }
+
+    if (options.mainFile) {
+      this.mainFile = options.mainFile;
+    } else {
+      throw new Error('No file path provided');
     }
 
     if (this.token) {
@@ -208,8 +213,8 @@ export default class ShardingManager extends EventEmitter {
         this.start(0);
       });
     } else if (master.isWorker) {
-      const Cluster = new ClusterS();
-      Cluster.spawn();
+      const ClusterS = new Cluster();
+      ClusterS.spawn();
     }
 
     // eslint-disable-next-line complexity

@@ -3,14 +3,14 @@
  *
  * @class Base
  */
-export default class Base {
+export class Base {
   /**
    * Base class contructor
    *
    * @param {object} instance
    * @param {import('eris').Client} instance.bot
    * @param {number} instance.clusterID
-   * @param {import('./Ipc.js').default} instance.ipc
+   * @param {import('./Ipc.js').IPC} instance.ipc
    */
   constructor(instance) {
     this.bot = instance.bot;

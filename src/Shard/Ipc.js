@@ -5,7 +5,7 @@ import { EventEmitter } from 'node:events';
  *
  * @class IPC
  */
-export default class IPC extends EventEmitter {
+export class IPC extends EventEmitter {
   constructor() {
     super();
 

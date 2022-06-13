@@ -1,15 +1,15 @@
 import { inspect } from 'node:util';
 import { Client } from 'eris';
-import Base from '../Shard/Base.js';
-import IPC from '../Shard/Ipc.js';
-import RequestHandler from '../Shard/RequestHandler.js';
+import { Base } from '../Shard/Base.js';
+import { IPC } from '../Shard/Ipc.js';
+import { RequestHandler } from '../Shard/RequestHandler.js';
 
 /**
  * Manage Clusters
  *
  * @class Cluster
  */
-export default class Cluster {
+export class Cluster {
   constructor() {
     this.shards = 0;
     this.maxShards = 0;

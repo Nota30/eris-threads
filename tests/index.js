@@ -1,6 +1,6 @@
 import { ShardingManager } from '../dist/esm/index.js';
 
-const shardManager = new ShardingManager('/tests/main.js', {
+const shardManager = new ShardingManager({
   clientOptions: {
     defaultImageFormat: 'png',
     messageLimit: 150,
@@ -9,6 +9,7 @@ const shardManager = new ShardingManager('/tests/main.js', {
   clusterTimeout: 6,
   debug: true,
   guildsPerShard: 1,
+  mainFile: '/tests/main.js',
   noConsoleOveride: false,
   shards: 3,
   stats: true,

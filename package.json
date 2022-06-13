@@ -1,6 +1,6 @@
 {
   "name": "eris-threads",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Sharding manager for Eris based discord bots.",
   "main": "./dist/esm/index.js",
   "types": "./dist/types/index.d.ts",
@@ -37,6 +37,6 @@
     "typescript": "^4.6.4"
   },
   "dependencies": {
-    "eris": "^0.16.1"
+    "eris": "^0.17.0"
   }
 }
